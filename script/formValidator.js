@@ -1,29 +1,19 @@
 
-// принимает в конструктор объект настроек с селекторами и классами формы (config?);
-// принимает вторым параметром элемент той формы, которая валидируется (formElement-active?);
+
 
 class FormValidator {
     constructor (config, formElement){
 
-        //formElement выводится в консоль как undefined
+        
        this._formSelector =config.formSelector;
-       //как понять что форма открыта?
-       //формы у нас 2. Общий класс ('.form')
-       //Одна форма класс "const formNewCard = document.querySelector("form[name='place']")"
-       //Вторая форма класс "const formProfile = document.querySelector("form[name='profile']")"
       this._inputSelector=config.inputSelector;
-      //в каждой форме два поля ввода. Итого 4
       this._inputErrorClass=config.ErrorClass;
         this._errorActiveClass=config.errorActiveClass;
-        // с этой штукой кажется вопросов нет
       this._submitButtonSelector=config.submitButtonSelector;
-      //кнопка ввода своя в каждой форме
+      
       
     } 
-//имеет приватные методы, которые обрабатывают форму: проверяют валидность поля, 
-//изменяют состояние кнопки сабмита, устанавливают все обработчики;
-// имеет один публичный метод enableValidation, который включает валидацию формы.
-// Для каждой проверяемой формы создайте экземпляр класса FormValidator  
+
     _hideInputError = (formElement, inputElement, config) => {
         const { inputErrorClass, errorActiveClass } = config;
         const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -69,7 +59,6 @@ class FormValidator {
     const buttonElement = formElement.querySelector(submitButtonSelector);
     inputList.forEach(inputElement => {
         inputElement.addEventListener('input', () => {
-            console.log('input')
             this._checkInputValidity(formElement, inputElement, restConfig);
             this._toggleButtonState(buttonElement, inputList);
         });
@@ -80,9 +69,7 @@ class FormValidator {
     
     enableValidation = (config) => {
         const { formSelector, ...restConfig } = config;
-        console.log(config);
         const formList = Array.from(document.querySelectorAll(formSelector));
-        console.log(formList);
         
         formList.forEach(formElement => {
             formList.forEach(formElement => {
