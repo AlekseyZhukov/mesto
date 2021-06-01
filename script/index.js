@@ -36,7 +36,7 @@ const cardPictureText = cardItem.querySelector('.elements__name');
 const imagePopupPic = document.querySelector('.popup__image');
 const imagePopupText = document.querySelector('.popup__image-name');
 
-const imagePopup = document.querySelector('.popup_type_image');
+export const imagePopup = document.querySelector('.popup_type_image');
 const imageClose = document.querySelector('.popup__close_image');
 const popups = document.querySelectorAll('.popup');
 const buttonElement = document.querySelector('.form__save-button_new-card');
@@ -44,8 +44,8 @@ const inputList = Array.from(formNewCard.querySelectorAll('.form__input'));
 
 
 initialCards.forEach((item) => {
- const cardData={
-    name :item.name,
+  const cardData = {
+    name: item.name,
     link: item.link
   }
   // Создадим экземпляр карточки
@@ -54,26 +54,32 @@ initialCards.forEach((item) => {
   const cardElement = card.generateCard();
   // Добавляем в DOM
   cardsContainer.append(cardElement);
-}); 
+});
 
-
+function createCard(cardData) {
+  const card = new Card(cardData);
+  return card.generateCard();
+}
 function handleFormNewCardAdd(evt) {
   evt.preventDefault();
-  const cardData={
-    name :formNewCardName.value,
+  const cardData = {
+    name: formNewCardName.value,
     link: formNewCardLink.value
   }
   const card = new Card(cardData);
-  const cardElement = card.generateCard();
+  const cardElement = createCard(cardData);
   cardsContainer.prepend(cardElement);
   closePopup(popupNewCard);
   formNewCard.reset();
-  buttonElement.disabled = true;
+  const f = new FormValidator(config);
+   f.resetButton(buttonElement);
+
+
 }
 
 
 
-function openPopup(popupElement) {
+export function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   document.addEventListener('keyup', closePopupEsc);
 }
@@ -121,7 +127,11 @@ buttonOfPopupNewCard.addEventListener('click', function () {
 
 popups.forEach(function (item) {
   item.addEventListener('click', function (e) {
-    closePopup(e.target); 
+
+    if (e.target === item) {
+      console.log('click');
+      closePopup(e.target);
+    }
   });
 });
 
@@ -129,14 +139,15 @@ popups.forEach(function (item) {
 
 
 function closePopupEsc(evt) {
-  const openedPopup=document.querySelector('.popup_opened');
+
   if (evt.key === "Escape") {
-     closePopup(openedPopup);
-    };
-  }
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  };
+}
 
 
-const config={
+const config = {
   formSelector: '.form',
   inputSelector: '.form__input',
   inputErrorClass: 'form__input_type_error',
@@ -145,5 +156,13 @@ const config={
 }
 
 
-const formValidator = new FormValidator(config);
-const checkVal =formValidator.enableValidation(config);
+const formList = document.querySelectorAll('.form');
+
+
+formList.forEach((item) => {
+  const formValidator = new FormValidator(config);
+
+  const checkVal = formValidator.enableValidation(config, item);
+
+});
+
