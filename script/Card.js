@@ -1,5 +1,4 @@
-import {openPopup, imagePopup} from './index.js'
-
+import {openPopup, imagePopup, } from './index.js'
 class Card {
  
   constructor (cardData, templateSelector) { 
@@ -8,12 +7,9 @@ class Card {
      this._templateSelector = templateSelector;
   }
   _getTemplate () {
-    const cardElement = document
-      .querySelector('#elements')
-      .content
-      .querySelector('.elements__item')
-      .cloneNode(true);
-      return cardElement;
+    const cardItem = this._templateSelector.content.querySelector('.elements__item').cloneNode(true);
+    return cardItem;
+      
   }
   _onDelete = () => { 
       this._element.remove();

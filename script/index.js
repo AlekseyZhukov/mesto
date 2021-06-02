@@ -25,9 +25,8 @@ const formNewCardName = document.querySelector("input[name='place-name']");
 const formNewCardLink = document.querySelector("input[name='image-link']");
 
 const placePhoto = document.querySelector('.elements__photo');
-
-const template = document.querySelector('#elements').content;
-const cardItem = template.querySelector('.elements__item').cloneNode(true);
+ const templateSelector = document.querySelector('#elements');
+const cardItem = templateSelector.content.querySelector('.elements__item').cloneNode(true);
 const cardsContainer = document.querySelector('.elements');
 const cardPicture = cardItem.querySelector('.elements__photo');
 const cardPictureText = cardItem.querySelector('.elements__name');
@@ -40,6 +39,7 @@ export const imagePopup = document.querySelector('.popup_type_image');
 const imageClose = document.querySelector('.popup__close_image');
 const popups = document.querySelectorAll('.popup');
 const buttonElement = document.querySelector('.form__save-button_new-card');
+const buttonEdit = document.querySelector('.form__save-button_edit');
 const inputList = Array.from(formNewCard.querySelectorAll('.form__input'));
 
 
@@ -49,7 +49,7 @@ initialCards.forEach((item) => {
     link: item.link
   }
   // Создадим экземпляр карточки
-  const card = new Card(cardData);
+  const card = new Card(cardData,templateSelector);
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
   // Добавляем в DOM
@@ -57,7 +57,7 @@ initialCards.forEach((item) => {
 });
 
 function createCard(cardData) {
-  const card = new Card(cardData);
+  const card = new Card(cardData,templateSelector);
   return card.generateCard();
 }
 function handleFormNewCardAdd(evt) {
@@ -66,13 +66,12 @@ function handleFormNewCardAdd(evt) {
     name: formNewCardName.value,
     link: formNewCardLink.value
   }
-  const card = new Card(cardData);
+  const card = new Card(cardData,templateSelector);
   const cardElement = createCard(cardData);
   cardsContainer.prepend(cardElement);
   closePopup(popupNewCard);
   formNewCard.reset();
-  const f = new FormValidator(config);
-   f.resetButton(buttonElement);
+  formNewCardValidation.resetButton();
 
 
 }
@@ -147,22 +146,19 @@ function closePopupEsc(evt) {
 }
 
 
-const config = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  inputErrorClass: 'form__input_type_error',
-  errorActiveClass: 'form__input-error_active',
-  submitButtonSelector: '.form__save-button'
-}
+// export const config = {
+//   formSelector: '.form',
+//   inputSelector: '.form__input',
+//   inputErrorClass: 'form__input_type_error',
+//   errorActiveClass: 'form__input-error_active',
+//   submitButtonSelector: '.form__save-button'
+// }
 
 
-const formList = document.querySelectorAll('.form');
 
 
-formList.forEach((item) => {
-  const formValidator = new FormValidator(config);
+const formProfileValidation = new FormValidator(formProfile,buttonEdit);
+formProfileValidation.enableValidation();
 
-  const checkVal = formValidator.enableValidation(config, item);
-
-});
-
+const formNewCardValidation = new FormValidator(formNewCard,buttonElement);
+formNewCardValidation.enableValidation();
