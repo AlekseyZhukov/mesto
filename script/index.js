@@ -25,8 +25,9 @@ const formNewCardName = document.querySelector("input[name='place-name']");
 const formNewCardLink = document.querySelector("input[name='image-link']");
 
 const placePhoto = document.querySelector('.elements__photo');
- const templateSelector = document.querySelector('#elements');
-const cardItem = templateSelector.content.querySelector('.elements__item').cloneNode(true);
+const templateElement = document.querySelector('#elements');
+const templateSelector = '#elements';
+const cardItem =  templateElement.content.querySelector('.elements__item').cloneNode(true);
 const cardsContainer = document.querySelector('.elements');
 const cardPicture = cardItem.querySelector('.elements__photo');
 const cardPictureText = cardItem.querySelector('.elements__name');
@@ -146,19 +147,19 @@ function closePopupEsc(evt) {
 }
 
 
-// export const config = {
-//   formSelector: '.form',
-//   inputSelector: '.form__input',
-//   inputErrorClass: 'form__input_type_error',
-//   errorActiveClass: 'form__input-error_active',
-//   submitButtonSelector: '.form__save-button'
-// }
+ const config = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  inputErrorClass: 'form__input_type_error',
+  errorActiveClass: 'form__input-error_active',
+  submitButtonSelector: '.form__save-button'
+}
 
 
 
 
-const formProfileValidation = new FormValidator(formProfile,buttonEdit);
+const formProfileValidation = new FormValidator(config,formProfile);
 formProfileValidation.enableValidation();
 
-const formNewCardValidation = new FormValidator(formNewCard,buttonElement);
+const formNewCardValidation = new FormValidator(config,formNewCard);
 formNewCardValidation.enableValidation();

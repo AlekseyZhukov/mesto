@@ -4,7 +4,7 @@ class Card {
   constructor (cardData, templateSelector) { 
      this._name=cardData.name;
      this._link = cardData.link;
-     this._templateSelector = templateSelector;
+     this._templateSelector = document.querySelector(templateSelector);
   }
   _getTemplate () {
     const cardItem = this._templateSelector.content.querySelector('.elements__item').cloneNode(true);
