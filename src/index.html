@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
         <title>Mesto Russia</title>
-        <link rel="stylesheet" href="./pages/index.css" />
+       
     </head>
 
     <body class="page">
         <header class="header">
-            <img src="images/logo20.svg" alt="Логотип Место Россия" class="header__logo">
+            <div class="header__logo"></div>
         </header>
         <main>
             <section class="profile">
                 <div class="profile__container">
-                    <img src="./images/kusto.jpg" alt="Аватар пользователя" class="profile__photo" />
+                    <div class="profile__photo"></div>
                     <div class="profile__all">
                         <div class="profile__box">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -37,9 +37,9 @@
                 <button class="popup__close popup__close_edit" type="button"></button>
                 <form class="form" name="profile" novalidate>
                     <h2 class="form__title">Редактировать профиль</h2>
-                    <input type="text" class="form__input" id="name" minlength="2" maxlength="40" name="profile-name" required>
+                    <input type="text" class="form__input" id="name" minlength="2" maxlength="40" name="name" required>
                     <span class="form__input-error" id="name-error"></span>
-                    <input type="text" class="form__input" id="job" minlength="2" maxlength="200" name="profile-job" required>
+                    <input type="text" class="form__input" id="job" minlength="2" maxlength="200" name="job" required>
                     <span class="form__input-error" id="job-error"></span>
                     <button class="form__save-button form__save-button_edit" type="submit">Coхранить</button>
                 </form>   
@@ -50,9 +50,9 @@
                 <button class="popup__close popup__close_new-card" type="button"></button>
                 <form class="form" name="place" novalidate>
                     <h2 class="form__title">Новое место</h2>
-                    <input type="text" class="form__input" id="place" name="place-name" minlength="2" maxlength="30" required autocomplete="off" placeholder="Новое место" >
+                    <input type="text" class="form__input" id="place" name="name" minlength="2" maxlength="30" required autocomplete="off" placeholder="Новое место" >
                     <span class="form__input-error" id="place-error"></span>
-                    <input type="url" class="form__input" id="link" name="image-link" required autocomplete="off" placeholder="Ссылка на картинку">
+                    <input type="url" class="form__input" id="link" name="link" required autocomplete="off" placeholder="Ссылка на картинку">
                     <span class="form__input-error" id="link-error"></span>
                     <button class="form__save-button form__save-button_new-card"  type="submit">Создать</button>
                 </form>   
@@ -79,7 +79,6 @@
             <p class="footer__text">&#169; 2021.Mesto Russia</p>
         </footer>
 
-        <script type="module" src="./script/index.js"></script>
         
     </body>
 </html>
