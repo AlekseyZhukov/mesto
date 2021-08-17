@@ -9,6 +9,10 @@ this._container = document.querySelector(containerSelector)
 addItem(element) {
     this._container.append(element);
 }
+addItemPrepend(element) {
+    this._container.prepend(element);
+}
+
 
 renderItems() {
     this._renderedItems.forEach(item => {

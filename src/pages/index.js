@@ -1,14 +1,14 @@
-import  '../pages/index.css';
+import '../pages/index.css';
 import initialCards from '../script/initial-cards.js'
 import Card from '../components/Card.js'
-import FormValidator from '../components/formValidator.js'
+import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import {
   buttonOnPopupEdit, buttonOnPopupNewCard, nameInput, jobInput, formProfile, formNewCard,
-  templateSelector,  cardsContainer,  config
+  templateSelector, cardsContainer, config
 } from '../utils/constants.js';
 
 
@@ -21,7 +21,10 @@ formProfileValidation.enableValidation();
 const formNewCardValidation = new FormValidator(config, formNewCard);
 formNewCardValidation.enableValidation();
 
-
+function createCard(cardData) {
+  const card = new Card(cardData, templateSelector, handleOpenImagePopup);
+  return card.generateCard();
+}
 
 const section = new Section({
   items: initialCards,
@@ -30,8 +33,8 @@ const section = new Section({
       name: cardItem.name,
       link: cardItem.link
     }
-    const card = new Card(cardData, templateSelector);
-    const cardElement = card.generateCard();
+
+    const cardElement = createCard(cardData)
     section.addItem(cardElement);
   }
 }, '.elements')
@@ -44,9 +47,8 @@ const addCardPopup = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
   submitHandler: (data) => {
 
-    const plusAdd = new Card(data, templateSelector);
-    const cardElement = plusAdd.generateCard();
-    cardsContainer.prepend(cardElement);
+    const cardElement = createCard(data);
+    section.addItemPrepend(cardElement)
   }
 });
 
@@ -63,7 +65,7 @@ buttonOnPopupEdit.addEventListener('click', () => {
   jobInput.value = data.jobInfo;
   editPopup.open();
   formProfileValidation.resetButton();
-
+  
 });
 
 buttonOnPopupNewCard.addEventListener('click', () => {
@@ -74,9 +76,9 @@ buttonOnPopupNewCard.addEventListener('click', () => {
 
 
 const popupWithImage = new PopupWithImage('.popup_type_image');
+popupWithImage.setEventListeners();
 
-
-export function handleOpenImagePopup(name, link) {
+function handleOpenImagePopup(name, link) {
   popupWithImage.open(name, link);
 }
 
