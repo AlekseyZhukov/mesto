@@ -71,6 +71,7 @@ buttonOnPopupEdit.addEventListener('click', () => {
 buttonOnPopupNewCard.addEventListener('click', () => {
   addCardPopup.open();
   formNewCardValidation.resetButton();
+  formNewCardValidation.resetValidation();
 });
 
 
