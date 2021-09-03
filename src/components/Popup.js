@@ -37,7 +37,6 @@ export default class Popup {
 
 
         this._cross.addEventListener('click', () => {
-            console.log('click');
             this.close();
         });
        

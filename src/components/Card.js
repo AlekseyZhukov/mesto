@@ -19,8 +19,12 @@ class Card {
   onDelete = () => {
     this.api
       .deleteCard(`cards/${this._card._id}`)
-      .catch((err) => console.log(err));
-    this._element.remove();
+      .then(() => {
+        this._element.remove()
+    })
+      .catch((err) => console.log(err))
+     
+    
   }
   _like(e) {
 
@@ -29,18 +33,22 @@ class Card {
 
       this.api
         .likeRemove(`cards/likes/${this._card._id}`)
-        .then((res) => this._setLikeCount(res.likes.length))
+        .then((res) => {
+          this._setLikeCount(res.likes.length);
+          likeIcon.classList.toggle("elements__button_active")
+        })
         .catch((err) => console.log(err))
     } else {
       this.api
         .likeAdd(`cards/likes/${this._card._id}`)
         .then((res) => {
-          this._setLikeCount(res.likes.length)
+          this._setLikeCount(res.likes.length);
+          likeIcon.classList.toggle("elements__button_active")
         })
         .catch((err) => console.log(err))
     }
 
-    likeIcon.classList.toggle("elements__button_active");
+    
 
   }
 

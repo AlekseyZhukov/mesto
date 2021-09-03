@@ -1,5 +1,5 @@
 export default class Api {
-    constructor(config) {
+    constructor(config, loading) {
         this.mainUrl = config.mainUrl;
         this.headers = config.headers;
     }
@@ -15,26 +15,26 @@ export default class Api {
                     return Promise.reject(`Ошибка: ${res.status}`);
                 }
             })
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
-            });
     }
+    
     getAvatarUserInfo(url) {
         return fetch(this.mainUrl + url, {
             headers: this.headers
         })
             .then((res) => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
             })
             .then((data) => {
                 return data;
             })
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
-            })
     }
+
     changeUserName(url, data, button) {
-        this._loading(button, true);
         return fetch(this.mainUrl + url, {
             method: 'PATCH',
             headers: this.headers,
@@ -44,19 +44,16 @@ export default class Api {
             })
         })
             .then((res) => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
             })
-            .then((res) => console.log(res))
-
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
-            })
-            .finally(() => {
-                this._loading(button, false);
-            });
     }
-    changeUserAvatar(url, data, button) {
-        this._loading(button, true);
+
+    changeUserAvatar(url, data) {
         return fetch(this.mainUrl + url, {
             method: 'PATCH',
             headers: this.headers,
@@ -66,22 +63,19 @@ export default class Api {
             })
         })
             .then((res) => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
             })
             .then((data) => {
-                console.log(data);
-
+                return data;
             })
-
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
-            })
-            .finally(() => {
-                this._loading(button, false);
-            });
     }
-    newCardAdd(url, data, button) {
-        this._loading(button, true);
+
+    newCardAdd(url, data) {
         return fetch(this.mainUrl + url, {
             method: 'POST',
             headers: this.headers,
@@ -91,80 +85,68 @@ export default class Api {
             })
         })
             .then((res) => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
             })
             .then((data) => {
                 return data;
-
             })
-
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
-            })
-            .finally(() => {
-                this._loading(button, false);
-            });
     }
-    deleteCard (url) {
+
+    deleteCard(url) {
         return fetch(this.mainUrl + url, {
             method: 'DELETE',
             headers: this.headers,
         })
             .then((res) => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
             })
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
-            })      
     }
+
     likeAdd(url) {
         return fetch(this.mainUrl + url, {
             method: 'PUT',
             headers: this.headers
-
         })
             .then((res) => {
-
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
             })
             .then((data) => {
                 return data;
-
-            })
-
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
             })
     }
+
     likeRemove(url) {
         return fetch(this.mainUrl + url, {
             method: 'DELETE',
             headers: this.headers
-
         })
             .then((res) => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
             })
             .then((data) => {
                 return data;
-
-            })
-
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен');
             })
     }
-    _loading(button, isLoading) {
-        if (isLoading == true) {
-            button.textContent = "Сохранение...";
-        } else {
-            button.textContent = "Сохранить";
-        }
-    }
-
 }
 
 

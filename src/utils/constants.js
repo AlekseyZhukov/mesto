@@ -20,3 +20,6 @@ export const avatar = document.querySelector('.profile__photo');
 export const avatarEdit = document.querySelector('.profile__photo-overlay');
 export const formAvatar = document.querySelector("form[name='avatar']");
 export const counterLike = cardItem.querySelector('.elements__like-counter');
+export const buttonSaveEdit = document.querySelector('.form__save-button_edit');
+export const buttonSaveNewCard = document.querySelector('.form__save-button_new-card');
+export const buttonSaveAvatar = document.querySelector('.form__save-button_avatar');
