@@ -152,9 +152,14 @@ function handleOpenDeletePopup() {
   const popupDelete = new PopupConfirm({
     popupSelector: '.popup_type_delete',
     submitHandler: () => {
-      this.onDelete();
-      popupDelete.close();
+      api.deleteCard(`cards/${this._card._id}`)
+      .then(() => {
+        this.onDelete();
+        popupDelete.close()
+      })
+      
     }
   })
   popupDelete.open();
 }
+

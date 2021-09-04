@@ -17,15 +17,10 @@ class Card {
 
   }
   onDelete = () => {
-    this.api
-      .deleteCard(`cards/${this._card._id}`)
-      .then(() => {
-        this._element.remove()
-    })
-      .catch((err) => console.log(err))
-     
-    
+   
+        this._element.remove()  
   }
+
   _like(e) {
 
     const likeIcon = e.target;
