@@ -16,7 +16,7 @@ import {
 } from '../utils/constants.js';
 let owner = null;
 
-const userInfo = new UserInfo('.profile__name', '.profile__occupation');
+const userInfo = new UserInfo('.profile__name', '.profile__occupation', '.profile__photo');
 
 
 const formProfileValidation = new FormValidator(config, formProfile);
@@ -52,9 +52,7 @@ api
   .getAvatarUserInfo('users/me')
   .then((res) => {
     owner = res._id;
-    document.querySelector('.profile__photo').src = res.avatar;
-    document.querySelector('.profile__name').textContent = res.name;
-    document.querySelector('.profile__occupation').textContent = res.about;
+    userInfo.setUserInfo(res);
     api
       .getInitialCards('cards')
       .then((cards) => {
@@ -89,11 +87,13 @@ const editPopup = new PopupWithForm({
   submitHandler: (data) => {
     loading(buttonSaveEdit, true);
     api.changeUserName('users/me', data)
-    .then((data) =>userInfo.setUserInfo(data)) 
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      editPopup.close();
+    }) 
       .catch((err) => console.log(err))
       .finally(() => {
-        loading(buttonSaveEdit, false);
-        editPopup.close();
+        loading(buttonSaveEdit, false);  
       });
   }
 });
@@ -103,11 +103,13 @@ const avatarPopup = new PopupWithForm({
   submitHandler: (data) => {
     loading(buttonSaveAvatar, true);
     api.changeUserAvatar('users/me/avatar', data)
-      .then((data) => avatar.src = data.avatar)
+      .then((data) => {
+        avatar.src = data.avatar
+        avatarPopup.close();
+      })
       .catch((err) => console.log(err))
       .finally(() => {
-        loading(buttonSaveAvatar, false);
-        avatarPopup.close();
+        loading(buttonSaveAvatar, false); 
       });
   }
 })
